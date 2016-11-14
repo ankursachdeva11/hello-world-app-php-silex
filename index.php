@@ -10,6 +10,10 @@ use Guzzle\Http\Client;
 $app = new Application();
 $app['debug'] = true;
 
+setenv("BC_AUTH_SERVICE=https://login.bigcommerce.com");
+setenv("BC_CLIENT_ID=83uhqbudo5vowrxep8i9pu93i2j48xh");
+setenv("BC_CLIENT_SECRET=equ4hsyb1blmy19xcfgh0tuvps8hldf");
+
 $app->get('/load', function (Request $request) use ($app) {
 
 	$data = verifySignedRequest($request->get('signed_payload'));
