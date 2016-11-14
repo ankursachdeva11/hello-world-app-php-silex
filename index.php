@@ -14,9 +14,9 @@ setenv("BC_AUTH_SERVICE=https://login.bigcommerce.com");
 setenv("BC_CLIENT_ID=83uhqbudo5vowrxep8i9pu93i2j48xh");
 setenv("BC_CLIENT_SECRET=equ4hsyb1blmy19xcfgh0tuvps8hldf");
 
-$app->get('/load', function (Request $request) use ($app) {
-
-	$data = verifySignedRequest($request->get('signed_payload'));
+//$app->get('/load', function (Request $request) use ($app) {
+if(isset($_REQUEST['method']) && $_REQUEST['method'] == 'load'){
+	$data = verifySignedRequest($_REQUEST['signed_payload']);
 	if (empty($data)) {
 		return 'Invalid signed_payload.';
 	}
@@ -27,18 +27,18 @@ $app->get('/load', function (Request $request) use ($app) {
 		return 'Invalid user.';
 	}
 	return 'Welcome ' . json_encode($user);
-});
+}//);
 
-$app->get('/auth/callback', function (Request $request) use ($app) {
-
+//$app->get('/auth/callback', function (Request $request) use ($app) {
+if(isset($_REQUEST['method']) && $_REQUEST['method'] == 'auth') {
 	$payload = array(
 		'client_id' => clientId(),
 		'client_secret' => clientSecret(),
 		'redirect_uri' => callbackUrl(),
 		'grant_type' => 'authorization_code',
-		'code' => $request->get('code'),
-		'scope' => $request->get('scope'),
-		'context' => $request->get('context'),
+		'code' => $_REQUEST['code'],
+		'scope' => $_REQUEST['scope'],
+		'context' => $_REQUEST['context'],
 	);
 
 	$client = new Client(bcAuthService());
