@@ -60,7 +60,7 @@ if(isset($_REQUEST['method']) && $_REQUEST['method'] == 'auth') {
 		return 'Something went wrong... [' . $resp->getStatusCode() . '] ' . $resp->getBody();
 	}
 
-});
+}
 
 function verifySignedRequest($signedRequest)
 {
