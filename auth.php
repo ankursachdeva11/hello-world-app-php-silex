@@ -1,9 +1,13 @@
 <?php
-
+ini_set('display_errors', 1);
 $curl = curl_init();
+$url = "https://login.bigcommerce.com/oauth2/token";
+$query = ['client_id' => '83uhqbudo5vowrxep8i9pu93i2j48xh',
+        'client_secret'=>'equ4hsyb1blmy19xcfgh0tuvps8hldf','code'=>$_REQUEST['code'],'scope'=>$_REQUEST['scope'],'grant_type'=>'authorization_code','redirect_uri'=>'https://celigotest.io/demo/auth.php','context'=>$_REQUEST['context']];
 
+        $url = $url .'?'.http_build_query($query);
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://login.bigcommerce.com/oauth2/token?client_id=83uhqbudo5vowrxep8i9pu93i2j48xh&client_secret=equ4hsyb1blmy19xcfgh0tuvps8hldf&code=".$_REQUEST['code']."&scope=".$_REQUEST['scope']."&grant_type=authorization_code&redirect_uri=https://bgcmrce.herokuapp.com/auth.php&context=".$_REQUEST['context'],
+  CURLOPT_URL => $url,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
